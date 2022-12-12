@@ -92,7 +92,7 @@ class UploadMethods:
 
     # region Public methods
 
-    async def sendfile(
+    async def send_file(
             self: 'TelegramClient',
             entity: 'hints.EntityLike',
             file: 'typing.Union[hints.FileLike, typing.Sequence[hints.FileLike]]',
@@ -370,7 +370,7 @@ class UploadMethods:
                 captions = captions[10:]
 
             for doc, cap in zip(file, captions):
-                result.append(await self.sendfile(
+                result.append(await self.send_file(
                     entity, doc, allow_cache=allow_cache,
                     caption=cap, force_document=force_document,
                     progress_callback=progress_callback, reply_to=reply_to,

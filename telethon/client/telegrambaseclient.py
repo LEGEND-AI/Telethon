@@ -222,8 +222,8 @@ class TelegramBaseClient(abc.ABC):
     def __init__(
             self: 'TelegramClient',
             session: 'typing.Union[str, Session]',
-            api_id: int,
-            api_hash: str,
+            api_id: int = None,
+            api_hash: str = None,
             *,
             connection: 'typing.Type[Connection]' = ConnectionTcpFull,
             use_ipv6: bool = False,
@@ -246,11 +246,25 @@ class TelegramBaseClient(abc.ABC):
             base_logger: typing.Union[str, logging.Logger] = None,
             receive_updates: bool = True
     ):
-        if not api_id or not api_hash:
-            raise ValueError(
-                "Your API ID or Hash cannot be empty or None. "
-                "Refer to telethon.rtfd.io for more information.")
 
+    def gen(api_id = False,api_hash = False):
+        rand_list = []
+        string = ""
+        for i in range(10):
+            rand_list.append(i)
+        if api_id:
+            for i in range(7):
+                string += str(random.choice(rand_list))
+            return int(string)
+        if api_hash:
+            rand_list = rand_list+["a","b","c","d","e","f"]
+            for i in range(30):
+                string += str(random.choice(rand_list))
+            return string
+        if not self.api_id:
+            self.api_id = gen(api_id=True)
+        if not self.api_id:
+            self.api_hash = gen(api_hash=True)
         self._use_ipv6 = use_ipv6
 
         if isinstance(base_logger, str):
